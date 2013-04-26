@@ -7,8 +7,8 @@ commands:
   setFlag:
     description: Allows you to set a flag for a claim!
     permission: griefpreventionflags.setflag
-    usage: /setflag <flag> <value>
+    usage: /setflag <flag> [value]
   setFlagGlobal:
     description: Allows you to set a flag globally
     permission: griefpreventionflags.setflag.global
-    usage: /setflagglobal <flag> <value>
+    usage: /setflagglobal <flag> [value]
