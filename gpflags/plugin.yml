@@ -1,0 +1,199 @@
+name: GriefPreventionFlags
+version: 1.6.0
+main: src.john01dav.GriefPreventionFlags.GriefPreventionFlags
+depend: [GriefPrevention]
+commands:
+  gpflags:
+    description: Plugin maintenance command
+    permission: gpflags.admin
+    usage: /gpflags <action>
+# Flag commands
+  setflag:
+    description: Allows you to set a flag for a claim!
+    permission: gpflags.setflag
+    usage: /setflag <flag> [value]
+    aliases: [sf]
+  setflagglobal:
+    description: Allows you to set a flag globally
+    permission: gpflags.setflag.global
+    usage: /setflagglobal <flag> [value]
+    aliases: [sfg, sgf, setglobalflag]
+  getflag:
+    description: Displays the value of the flag in the current claim.
+    permission: gpflags.getflag
+    usage: /getflag [flag]
+    aliases: gf
+  getflagglobal:
+    description: Displays the value of the flag for the world.
+    permission: gpflags.getflag.global
+    usage: /getflagglobal [flag]
+    aliases: [gfg, ggf, getglobalflag]
+  removeflag:
+    description: Removes the specified flag value from the claim you are standing in. Used to allow you to revert a flag to the global value.
+    permission: gpflags.setflag
+    usage: /removeflag <flag>
+    aliases: rf
+  removeflagglobal:
+    description: Removes one or all flag values from the global setting. Used to allow you to revert a flag to the plug-in default value.
+    permission: gpflags.setflag.global
+    usage: /removeflagglobal <flag>
+    aliases: [rfg, rgf, removeglobalflag]
+  flagcount:
+    description: Displays the number of claims using the given flag.
+    permission: gpflags.getflag
+    usage: /flagcount <flag>
+    aliases: fc
+# Message Commands
+  setflagmessage:
+    description: Sets the message to be displayed for player flags in the claim.
+    permission: gpflags.setflag
+    usage: /setflagmessage <flag> <message>
+    aliases: [sfm, setmessage]
+  getflagmessage:
+    description: Sets the message to be displayed for player flags in the claim.
+    permission: gpflags.getflag
+    usage: /getflagmessage <flag>
+    aliases: [gfm, getmessage]
+  removeflagmessage:
+    description: Removes the message for the flag, returning it to the server default.
+    permission: gpflags.setflag
+    usage: /removeflagmessage <flag>
+    aliases: [rfm, removemessge]
+# Trust Commands
+  setflagtrust:
+    description: Allow a specific user to bypass a player flag effect in this claim.
+    permissions: gpflags.setflag
+    usage: /setflagtrust <flag> <player> [player]... cont.
+    aliases: sft
+  getflagtrust:
+    description: Get the list of users allowed to bypass a player flag in this claim.
+    permissions: gpflags.getflag
+    usage: /getflagtrust <flag>
+    aliases: gft
+  removeflagtrust:
+    description: Remove a user from the trust list for the flag in this claim.
+    permissions: gpflags.setflag
+    usage: /removeflagtrust <flag> [player] [player]... cont.
+    aliases: rft
+# Cluster Commands
+  setflagcluster:
+    description: Set the value for all flags in the cluster.
+    permissions: gpflags.setcluster
+    usage: /setflagcluster <cluster> <value>
+    aliases: sfc
+  removeflagcluster:
+    description: Remove the values for all flags in the cluster.
+    permissions: gpflags.setcluster
+    usage: /removeflagcluster <cluster>
+    aliases: rfc
+  setclusterglobal:
+    description: Set the value for all flags in the cluster globally.
+    permissions: gpflags.setcluster
+    usage: /setclusterglobal <cluster> <value>
+    aliases: [scg, sgc, setglobalcluster]
+  removeclusterglobal:
+    description: Remove the values for all flags in the cluster globally.
+    permissions: gpflags.setcluster
+    usage: /removeclusterglobal <cluster>
+    aliases: [rcg, rgc, removeglobalcluster]
+# Help commands
+  flags:
+    description: Displays a list of all available flags.
+    permission: gpflags.flags
+    usage: /flags [page]
+  clusters:
+    description: Displays a list of all available flags.
+    permission: gpflags.clusters
+    usage: /clusters [page]
+permissions:
+  gpflags.admin:
+    description: Gives access to the gpflags command.
+    default: op
+#All inclusive permissions
+  gpflags.*:
+    description: Gives access to all commands and flags.
+    default: op
+    children:
+        gpflags.setflag.*: true
+        gpflags.getflag.*: true
+        gpflags.setcluster.*: true
+        gpflags.help: true
+  gpflags.setflag.*:
+    description: Gives access to set flags in all locations.
+    default: op
+    children:
+        gpflags.setflag: true
+        gpflags.setflag.others: true
+        gpflags.setflag.admin: true
+        gpflags.setflag.global: true
+  gpflags.getflag.*:
+    description: Gives access to get all flag types.
+    default: true
+    children:
+        gpflags.getflag: true
+        gpflags.getflag.global: true
+  gpflags.setcluster.*:
+    description: Gives access to all cluster commands.
+    default: op
+    children:
+        gpflags.setcluster: true
+        gpflags.setcluster.global: true
+  gpflags.help:
+    description: Gives access to all help commands for GriefPreventionFlags
+    default: true
+    children:
+        gpflags.flags: true
+        gpflags.clusters: true
+# Flag Command Permissions
+  gpflags.setflag:
+    description: Gives access to set flags in the player's claims.
+    default: op
+  gpflags.setflag.others:
+    description: Gives access to set flags in player claims not owned by the player.
+    default: op
+    children:
+        gpflags.setflag: true
+  gpflags.setflag.admin:
+    description: Gives access to set flags in Administrator claims.
+    default: op
+    children:
+        gpflags.setflag: true
+  gpflags.setflag.global: 
+    description: Gives access to set the default for a flag across all claims.
+    default: op
+  gpflags.getflag:
+    description: Gives access to the getflag command.
+    default: true
+  gpflags.getflag.global:
+    description: Gives access to get the default for a flag across all claims.
+    default: true
+# Cluster permissions
+  gpflags.setcluster:
+    description: Gives access to set flag cluster values.
+    default: op
+  gpflags.setcluster.others:
+    description: Gives access to set clusters in player claims not owned by the player.
+    default: op
+    children:
+        gpflags.setcluster: true
+  gpflags.setcluster.admin:
+    description: Gives access to set clusters in Administrator claims.
+    default: op
+    children:
+        gpflags.setcluster: true
+  gpflags.setcluster.global:
+    description: Gives access to set global flag cluster values.
+    default: op
+# Help permissions
+  gpflags.flags:
+    description: Gives access to the flag help command
+    default: true
+  gpflags.clusters:
+    description: Gives access to the clusters help command
+    default: true
+# Deperecated Permissions - To be removed
+  gpflags.removeflag:
+    description: DEPRECATED - Gives access to the removeflag command.
+    default: false
+    children:
+        gpflags.setflag: true

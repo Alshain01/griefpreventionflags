@@ -1,0 +1,9 @@
+GriefPreventionFlags:
+  EventListener:
+    PlayerMove: true
+    CreatureSpawn: true
+    LeafDecay: true
+    Weather: true
+    Inventory: true
+    Block: true
+    EntityDamage: true
