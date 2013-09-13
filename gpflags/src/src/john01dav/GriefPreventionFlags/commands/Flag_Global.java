@@ -65,15 +65,15 @@ public class Flag_Global extends Command {
 			world = GriefPreventionFlags.instance.getServer().getWorld(args[0]);
 			
 			if (world == null) {
-				sender.sendMessage(args[3] + " is not a valid world.");
+				sender.sendMessage(args[0] + " is not a valid world.");
 				return true;
 			}
 			
-			if (args.length == 3) {
-				value = args[3];
-			}
-			
 			flag = getFlag(sender, args[1]);
+			
+			if (args.length == 3) {
+				value = args[2];
+			}
 		} else {
 			// Player uses the world they are in.
 			if (args.length < 1 || args.length > 2) { return false; }
@@ -81,10 +81,10 @@ public class Flag_Global extends Command {
 			world = ((Player)sender).getWorld();
 			
 			if (args.length == 2) {
-				value = args[2];
+				value = args[1];
 			}
 			
-			flag = getFlag(sender, args[1]);
+			flag = getFlag(sender, args[0]);
 		}
 		
 		if (flag == null) {	return true; }
